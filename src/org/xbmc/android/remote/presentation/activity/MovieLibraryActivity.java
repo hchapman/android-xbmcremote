@@ -22,8 +22,14 @@
 package org.xbmc.android.remote.presentation.activity;
 
 import org.xbmc.android.remote.R;
+import org.xbmc.android.remote.business.ManagerFactory;
+import org.xbmc.android.remote.presentation.fragment.MovieActorFragment;
+import org.xbmc.android.remote.presentation.fragment.MovieFilesFragment;
+import org.xbmc.android.remote.presentation.fragment.MovieGenreFragment;
 import org.xbmc.android.remote.presentation.fragment.MovieTitleFragment;
 import org.xbmc.android.widget.ActionBarTabsPager;
+import org.xbmc.api.business.IEventClientManager;
+import org.xbmc.eventclient.ButtonCodes;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
@@ -57,9 +63,9 @@ public class MovieLibraryActivity extends ActionBarTabsPager implements ViewTree
         
 		// add the tabs
 		mTabsAdapter.addTab(newTab("tab_movies", "Movies", R.drawable.st_movie_on), MovieTitleFragment.class);
-//		mTabsAdapter.addTab(newTab("tab_actors", "Actors", R.drawable.st_actor_on), null);
-//		mTabsAdapter.addTab(newTab("tab_genres", "Genres", R.drawable.st_genre_on), null);
-//		mTabsAdapter.addTab(newTab("tab_files", "File Mode", R.drawable.st_filemode_on), null);
+		mTabsAdapter.addTab(newTab("tab_actors", "Actors", R.drawable.st_actor_on), MovieActorFragment.class);
+		mTabsAdapter.addTab(newTab("tab_genres", "Genres", R.drawable.st_genre_on), MovieGenreFragment.class);
+		mTabsAdapter.addTab(newTab("tab_files", "File Mode", R.drawable.st_filemode_on), MovieFilesFragment.class);
 //		
 		//mTabsAdapter.getViewTreeObserver().addOnGlobalLayoutListener(this);
 

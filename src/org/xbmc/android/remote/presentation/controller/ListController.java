@@ -85,12 +85,16 @@ public abstract class ListController extends AbstractController implements Seria
 
 	public void onCreate(Activity activity, Handler handler, AbsListView list) {
 		super.onCreate(activity, handler);
-		mList = list;
 		mActivity = activity;
 		SharedPreferences sp = mActivity.getSharedPreferences("global", Context.MODE_PRIVATE);
 		hideWatched = sp.getBoolean(PREF_HIDE_WATCHED, false);
 		isCreated = true;
+		setListView(list);
 //		list.setOnScrollListener(new ScrollManager(ThumbSize.SMALL));
+	}
+	
+	public void setListView(AbsListView list) {
+		mList = list;
 	}
 
 	/**

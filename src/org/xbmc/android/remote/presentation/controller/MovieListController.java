@@ -112,24 +112,29 @@ public class MovieListController extends ListController implements IController {
 			
 			mActor = (Actor)mActivity.getIntent().getSerializableExtra(ListController.EXTRA_ACTOR);
 			mGenre = (Genre)mActivity.getIntent().getSerializableExtra(ListController.EXTRA_GENRE);
-			activity.registerForContextMenu(mList);
 			
 			mFallbackBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_poster);
 			mWatchedBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.check_mark);
 			setupIdleListener();
 			
-			mList.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if(isLoading()) return;
-					final Movie movie = (Movie)mList.getAdapter().getItem(((FiveLabelsItemView)view).position);
-					Intent nextActivity = new Intent(view.getContext(), MovieDetailsActivity.class);
-					nextActivity.putExtra(ListController.EXTRA_MOVIE, movie);
-					mActivity.startActivity(nextActivity);
-				}
-			});
-			mList.setOnKeyListener(new ListControllerOnKeyListener<Movie>());
 			fetch();
 		}
+	}
+	
+	public void setListView(AbsListView list) {		
+		super.setListView(list);
+		
+		mList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(isLoading()) return;
+				final Movie movie = (Movie)mList.getAdapter().getItem(((FiveLabelsItemView)view).position);
+				Intent nextActivity = new Intent(view.getContext(), MovieDetailsActivity.class);
+				nextActivity.putExtra(ListController.EXTRA_MOVIE, movie);
+				mActivity.startActivity(nextActivity);
+			}
+		});
+		mList.setOnKeyListener(new ListControllerOnKeyListener<Movie>());
+		fetch();
 	}
 	
 	private void fetch() {

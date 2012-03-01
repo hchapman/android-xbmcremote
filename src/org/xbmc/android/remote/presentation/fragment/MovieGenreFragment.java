@@ -1,7 +1,7 @@
 package org.xbmc.android.remote.presentation.fragment;
 
 import org.xbmc.android.remote.R;
-import org.xbmc.android.remote.presentation.controller.MovieListController;
+import org.xbmc.android.remote.presentation.controller.MovieGenreListController;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,11 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class MovieTitleFragment extends LibraryFragment {
+public class MovieGenreFragment extends LibraryFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mController = new MovieListController();
+		mController = new MovieGenreListController(MovieGenreListController.TYPE_MOVIE);
 	}
-
 }

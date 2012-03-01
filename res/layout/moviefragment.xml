@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/movie_title_layout" android:layout_width="fill_parent"
+	android:id="@+id/movie_layout" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:orientation="vertical"
 	android:fadingEdge="none">
 	<include layout="@layout/listmessage" />
 	<org.xbmc.android.widget.FastScrollView
 		android:layout_width="fill_parent" android:layout_height="fill_parent">
-		<ListView android:id="@+id/movietitlelist_list"
+		<ListView android:id="@+id/movielist_list"
 			android:layout_height="fill_parent" android:layout_width="fill_parent"
 			style="@style/standard_list" />
 	</org.xbmc.android.widget.FastScrollView>

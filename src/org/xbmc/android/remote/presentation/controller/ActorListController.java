@@ -83,57 +83,66 @@ public class ActorListController extends ListController implements IController {
 			mFallbackBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.person_black_small);
 			setupIdleListener();
 			
-			final String title = mType == TYPE_MOVIE ? "Movie " : mType == TYPE_TVSHOW ? "TV " : "" + "Actors";
-			DataResponse<ArrayList<Actor>> response = new DataResponse<ArrayList<Actor>>() {
-				public void run() {
-					if (value.size() > 0) {
-						setTitle(title + " (" + value.size() + ")");
-						mList.setAdapter(new ActorAdapter(mActivity, value));
-						preloadCovers(value, mVideoManager, mThumbSize);
-					} else {
-						setTitle(title);
-						setNoDataMessage("No actors found.", R.drawable.icon_artist_dark);
-					}
-				}
-			};
-			
-			mList.setOnKeyListener(new ListControllerOnKeyListener<Artist>());			
-			
-			showOnLoading();
-			setTitle(title + "...");			
-			switch (mType) {
-				case TYPE_ALL:
-					mVideoManager.getActors(response, mActivity.getApplicationContext());
-					break;
-				case TYPE_MOVIE:
-					mVideoManager.getMovieActors(response, mActivity.getApplicationContext());
-					break;
-				case TYPE_TVSHOW:
-					mVideoManager.getTvShowActors(response, mActivity.getApplicationContext());
-					break;
-				case TYPE_EPISODE:
-					break;
-			}
-			
-			mList.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if(isLoading()) return;
-					Intent nextActivity;
-					final Actor actor = (Actor)mList.getAdapter().getItem(((OneLabelItemView)view).position);
-					nextActivity = new Intent(view.getContext(), ListActivity.class);
-					if(mType == TYPE_TVSHOW)
-						nextActivity.putExtra(ListController.EXTRA_LIST_CONTROLLER, new TvShowListController());
-					else
-						nextActivity.putExtra(ListController.EXTRA_LIST_CONTROLLER, new MovieListController());
-					nextActivity.putExtra(ListController.EXTRA_ACTOR, actor);
-					mActivity.startActivity(nextActivity);
-				}
-			});
+			fetch();
 		}
 	}
 	
 	@Override
+	public void setListView(AbsListView list) {
+		super.setListView(list);
+		mList.setOnKeyListener(new ListControllerOnKeyListener<Artist>());			
+		mList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(isLoading()) return;
+				Intent nextActivity;
+				final Actor actor = (Actor)mList.getAdapter().getItem(((OneLabelItemView)view).position);
+				nextActivity = new Intent(view.getContext(), ListActivity.class);
+				if(mType == TYPE_TVSHOW)
+					nextActivity.putExtra(ListController.EXTRA_LIST_CONTROLLER, new TvShowListController());
+				else
+					nextActivity.putExtra(ListController.EXTRA_LIST_CONTROLLER, new MovieListController());
+				nextActivity.putExtra(ListController.EXTRA_ACTOR, actor);
+				mActivity.startActivity(nextActivity);
+			}
+		});
+		fetch();
+	}
+	
+	@Override
 	public void onCreateOptionsMenu(Menu menu) {
+	}
+	
+	public void fetch() {
+		final String title = mType == TYPE_MOVIE ? "Movie " : mType == TYPE_TVSHOW ? "TV " : "" + "Actors";
+		DataResponse<ArrayList<Actor>> response = new DataResponse<ArrayList<Actor>>() {
+			public void run() {
+				if (value.size() > 0) {
+					setTitle(title + " (" + value.size() + ")");
+					mList.setAdapter(new ActorAdapter(mActivity, value));
+					preloadCovers(value, mVideoManager, mThumbSize);
+				} else {
+					setTitle(title);
+					setNoDataMessage("No actors found.", R.drawable.icon_artist_dark);
+				}
+			}
+		};
+		
+		
+		showOnLoading();
+		setTitle(title + "...");			
+		switch (mType) {
+			case TYPE_ALL:
+				mVideoManager.getActors(response, mActivity.getApplicationContext());
+				break;
+			case TYPE_MOVIE:
+				mVideoManager.getMovieActors(response, mActivity.getApplicationContext());
+				break;
+			case TYPE_TVSHOW:
+				mVideoManager.getTvShowActors(response, mActivity.getApplicationContext());
+				break;
+			case TYPE_EPISODE:
+				break;
+		}
 	}
 	
 	private class ActorAdapter extends ArrayAdapter<Actor> {
