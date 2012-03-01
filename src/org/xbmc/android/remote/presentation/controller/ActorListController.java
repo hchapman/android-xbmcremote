@@ -105,7 +105,7 @@ public class ActorListController extends ListController implements IController {
 				mActivity.startActivity(nextActivity);
 			}
 		});
-		fetch();
+		//fetch();
 	}
 	
 	@Override

@@ -134,7 +134,7 @@ public class MovieListController extends ListController implements IController {
 			}
 		});
 		mList.setOnKeyListener(new ListControllerOnKeyListener<Movie>());
-		fetch();
+		//fetch();
 	}
 	
 	private void fetch() {

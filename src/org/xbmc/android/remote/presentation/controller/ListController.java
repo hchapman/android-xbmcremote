@@ -94,6 +94,9 @@ public abstract class ListController extends AbstractController implements Seria
 	}
 	
 	public void setListView(AbsListView list) {
+		if (mList != null) {
+			list.setAdapter(mList.getAdapter());
+		}
 		mList = list;
 	}
 
