@@ -104,6 +104,7 @@ public class MediaIntentController extends AbstractController implements IContro
 	public void onError(Exception exception) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 		try {
+			exception.printStackTrace();
 			throw exception;
 		} catch (Exception e) {
 			builder.setTitle("Unable to send URL to XBMC!");

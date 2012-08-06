@@ -51,6 +51,7 @@
 		<activity android:name=".presentation.activity.GridActivity" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".presentation.activity.TvShowLibraryActivity" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".presentation.activity.NowPlayingActivity" android:theme="@android:style/Theme.NoTitleBar" />
+		<activity android:name=".presentation.activity.JustintvLoaderActivity" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".presentation.activity.PlaylistActivity" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".presentation.activity.AboutActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
 		<activity android:name=".presentation.activity.GestureRemoteActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"/>
@@ -67,6 +68,10 @@
 				<data android:scheme="http" android:mimeType="audio/*"/>
 				<data android:scheme="http" android:host="youtube.com"/>
 				<data android:scheme="http" android:host="www.youtube.com"/>
+				<data android:scheme="http" android:host="twitch.tv"/>
+				<data android:scheme="http" android:host="www.twitch.tv"/>
+				<data android:scheme="http" android:host="justin.tv"/>
+				<data android:scheme="http" android:host="www.justin.tv"/>
 			</intent-filter>
 		</activity>
 		

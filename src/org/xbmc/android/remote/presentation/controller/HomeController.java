@@ -32,6 +32,7 @@ import org.xbmc.android.remote.business.ManagerFactory;
 import org.xbmc.android.remote.presentation.activity.GestureRemoteActivity;
 import org.xbmc.android.remote.presentation.activity.HomeActivity;
 import org.xbmc.android.remote.presentation.activity.HostSettingsActivity;
+import org.xbmc.android.remote.presentation.activity.JustintvLoaderActivity;
 import org.xbmc.android.remote.presentation.activity.ListActivity;
 import org.xbmc.android.remote.presentation.activity.MovieLibraryActivity;
 import org.xbmc.android.remote.presentation.activity.MusicLibraryActivity;
@@ -106,6 +107,7 @@ public class HomeController extends AbstractController implements INotifiableCon
 	private static final int HOME_ACTION_WOL = 6;
 	private static final int HOME_ACTION_TVSHOWS = 7;
 	private static final int HOME_ACTION_POWERDOWN = 8;
+	private static final int HOME_ACTION_JTV = 9;
 	
 	private IInfoManager mInfoManager;
 	
@@ -218,6 +220,7 @@ public class HomeController extends AbstractController implements INotifiableCon
 	
 	private void setupMenuItems(GridView menuGrid) {
 		final HomeItem remote = new HomeItem(HOME_ACTION_REMOTE, R.drawable.icon_home_remote, "Remote Control", "Use as");
+		final HomeItem jtv = new HomeItem(HOME_ACTION_JTV, R.drawable.icon_home_remote, "JTV Stream", "Load a");
 
 		final ArrayList<HomeItem> homeItems = new ArrayList<HomeItem>();
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
@@ -233,6 +236,7 @@ public class HomeController extends AbstractController implements INotifiableCon
 		prefs.registerOnSharedPreferenceChangeListener(this);
 		homeItems.add(new HomeItem(HOME_ACTION_NOWPLAYING, R.drawable.icon_home_playing, "Now Playing", "See what's"));
 		homeItems.add(remote);
+		homeItems.add(jtv);
 		if (prefs.getBoolean("setting_show_home_powerdown", false))
 			homeItems.add(new HomeItem(HOME_ACTION_POWERDOWN, R.drawable.icon_home_power, "Power Off", "Turn your XBMC off"));
 		
@@ -319,6 +323,9 @@ public class HomeController extends AbstractController implements INotifiableCon
 					case HOME_ACTION_POWERDOWN:
 						PowerDown powerdown = new PowerDown();
 						powerdown.ShowDialog(mActivity);
+						break;
+					case HOME_ACTION_JTV:
+						intent = new Intent(v.getContext(), JustintvLoaderActivity.class);
 						break;
 				}
 				if (intent != null) {
